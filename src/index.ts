@@ -9,3 +9,5 @@ export const ModeContextProvider = dynamic(
 );
 
 export { ModeContext } from '@-ft/mode-react';
+
+export type { Mode, ModeManager, Theme } from '@-ft/mode-react';
