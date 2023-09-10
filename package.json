@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@-ft/mode-next",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "React wrapper for theme mode manager",
   "types": "./index.d.ts",
   "main": "./index.js",
@@ -16,7 +16,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@-ft/mode-react": "^0.0.6"
+    "@-ft/mode-react": "^0.0.7"
   },
   "peerDependencies": {
     "next": "^13.4.19"
