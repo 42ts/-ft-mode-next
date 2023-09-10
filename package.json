@@ -1,0 +1,35 @@
+{
+  "private": true,
+  "name": "@-ft/mode-next",
+  "version": "0.0.1",
+  "description": "React wrapper for theme mode manager",
+  "types": "./index.d.ts",
+  "main": "./index.js",
+  "scripts": {
+    "build": "rimraf compile dist && tsc -p tsconfig.compile.json && rollup -c && dts-bundle-generator --no-banner -o dist/index.d.ts compile/index.d.ts",
+    "publish": "npm run build && package-json-minifier && cpy README.md dist && cd dist && npm publish"
+  },
+  "author": "Juyeong Maing <mjy9088@naver.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/42ts/-ft-mode-next.git"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@-ft/mode-react": "^0.0.4"
+  },
+  "peerDependencies": {
+    "next": "^13.4.19"
+  },
+  "devDependencies": {
+    "@rollup/plugin-terser": "^0.4.3",
+    "@types/react": "^18.2.21",
+    "cpy-cli": "^5.0.0",
+    "dts-bundle-generator": "^8.0.1",
+    "package.json-minifier": "^0.0.4",
+    "rimraf": "^5.0.1",
+    "rollup": "^3.28.1",
+    "rollup-plugin-banner2": "^1.2.2",
+    "typescript": "^5.2.2"
+  }
+}
