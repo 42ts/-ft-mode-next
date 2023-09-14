@@ -4,34 +4,46 @@ Next wrapper of dark/light theme mode manager for web
 
 ## Usage
 
+- Generate `/public/mode.js` using `@-ft/mode-codegen` package.
+
+```json
+{
+  "variableName": "__theme_mode",
+  "persist": {
+    "type": "cookie",
+    "key": "THEME_MODE",
+  }
+}
+```
+
+- Load `/mode.js` in `src/app/layout.tsx`, and suppress hydration warning
+
+```tsx
+import { ModeContextProvider } from '@-ft/mode-next';
+
+export default function RootLayout({ children }: PropsWithChildren) {
+  const mode = cookies().get('THEME_MODE');
+  return (
+    <html lang="en" className={mode?.value} suppressHydrationWarning>
+      <head>
+        <script src="/mode.js" />
+      </head>
+      <body>
+        <ModeContextProvider variableName="__theme_mode">
+          {children}
+        </ModeContextProvider>
+      </body>
+    </html>
+  );
+}
+```
+
+- Then you can use `ModeContext` in your app.
+
 ```jsx
 'use client';
 
-import { ModeContextProvider, ModeContext } from '@-ft/mode-next';
-
-const load = () => getCookie('mode') ?? 'system';
-const save = (mode) => setCookie('mode', mode);
-const apply = (theme) => {
-  if (theme === 'dark') {
-    document.documentElement.classList.add('dark');
-  } else {
-    document.documentElement.classList.remove('dark');
-  }
-};
-const cleanup = () => document.documentElement.classList.remove('dark');
-
-function Provider({ children }) {
-  return (
-    <ModeContextProvider
-      load={load}
-      save={save}
-      apply={apply}
-      cleanup={cleanup}
-    >
-      {children}
-    </ModeContextProvider>
-  );
-}
+import { ModeContext } from '@-ft/mode-next';
 
 function ModeBar() {
   const { mode, setMode } = useContext(ModeContext);
