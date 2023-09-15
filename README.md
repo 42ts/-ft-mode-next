@@ -11,20 +11,23 @@ Next wrapper of dark/light theme mode manager for web
   "variableName": "__theme_mode",
   "persist": {
     "type": "cookie",
-    "key": "THEME_MODE",
+    "key": "THEME",
   }
 }
 ```
 
-- Load `/mode.js` in `src/app/layout.tsx`, and suppress hydration warning
+- Load `/mode.js` in `src/app/layout.tsx`, apply class name and suppress hydration warning
 
 ```tsx
 import { ModeContextProvider } from '@-ft/mode-next';
 
 export default function RootLayout({ children }: PropsWithChildren) {
-  const mode = cookies().get('THEME_MODE');
   return (
-    <html lang="en" className={mode?.value} suppressHydrationWarning>
+    <html
+      lang="en"
+      className={cookies().get('THEME')?.value === "dark" ? "dark" : undefined}
+      suppressHydrationWarning
+    >
       <head>
         <script src="/mode.js" />
       </head>
