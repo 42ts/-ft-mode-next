@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@-ft/mode-next",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Next wrapper for theme mode manager",
   "types": "./index.d.ts",
   "main": "./index.js",
@@ -20,7 +20,7 @@
   },
   "peerDependencies": {
     "@-ft/mode": "^0.1.0",
-    "next": "^13.4.19"
+    "next": "^14.0.0"
   },
   "peerDependenciesMeta": {
     "@-ft/mode": {
