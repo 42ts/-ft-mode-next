@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@-ft/mode-next",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Next wrapper for theme mode manager",
   "types": "./index.d.ts",
   "main": "./index.js",
@@ -15,12 +15,9 @@
     "url": "https://github.com/42ts/-ft-mode-next.git"
   },
   "license": "MIT",
-  "dependencies": {
-    "@-ft/mode-react": "^0.1.2"
-  },
   "peerDependencies": {
     "@-ft/mode": "^0.1.0",
-    "next": "^14.0.0"
+    "next": "13 || 14"
   },
   "peerDependenciesMeta": {
     "@-ft/mode": {
