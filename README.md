@@ -16,7 +16,7 @@ Next wrapper of dark/light theme mode manager for web
 }
 ```
 
-- Load `/mode.js` in `src/app/layout.tsx`, apply class name and suppress hydration warning
+- Load `/mode.js` in `src/app/layout.tsx`, apply default cookie-stored theme mode to class name/ssrInitialMode and suppress hydration warning
 
 ```tsx
 import { ModeContextProvider } from '@-ft/mode-next';
@@ -32,7 +32,10 @@ export default function RootLayout({ children }: PropsWithChildren) {
         <script src="/mode.js" />
       </head>
       <body>
-        <ModeContextProvider variableName="__theme_mode">
+        <ModeContextProvider
+          variableName="__theme_mode"
+          ssrInitialMode={theme?.value ?? "system"}
+        >
           {children}
         </ModeContextProvider>
       </body>
