@@ -6,7 +6,6 @@ import {
   type ModeManager,
   type Theme,
 } from '@-ft/mode';
-import dynamic from 'next/dynamic';
 import {
   PropsWithChildren,
   createContext,
@@ -30,31 +29,6 @@ export interface ModeContextProviderProps extends PropsWithChildren {
   variableName: string;
 }
 
-interface CSROnlyInternalProps {
-  variableName: string;
-  setMode: (mode: Mode) => void;
-  setTheme: (theme: Theme) => void;
-}
-
-const CSROnlyInternal = dynamic(
-  Promise.resolve(function CSROnlyInternal({
-    variableName,
-    setMode,
-    setTheme,
-  }: CSROnlyInternalProps) {
-    const modeManager: ModeManager = (window as any)[variableName];
-    useEffect(
-      () => modeManager && setTheme(modeManager.getTheme()),
-      [modeManager]
-    );
-    useEffect(() => modeManager?.watchMode(setMode), [modeManager, setMode]);
-    useEffect(() => modeManager?.watchTheme(setTheme), [modeManager, setTheme]);
-
-    return null;
-  }),
-  { ssr: false }
-);
-
 export function ModeContextProvider({
   children,
   ssrInitialMode,
@@ -66,9 +40,12 @@ export function ModeContextProvider({
   const [theme, setTheme] = useState<Theme>('light');
 
   const setModeExternal = useCallback(
-    (mode: Mode) => modeManager && modeManager.setMode(mode),
+    (mode: Mode) => modeManager?.setMode(mode),
     [modeManager]
   );
+
+  useEffect(() => modeManager?.watchMode(setMode), [modeManager]);
+  useEffect(() => modeManager?.watchTheme(setTheme), [modeManager]);
 
   return (
     <ModeContext.Provider
@@ -77,11 +54,6 @@ export function ModeContextProvider({
         [mode, theme, setModeExternal]
       )}
     >
-      <CSROnlyInternal
-        variableName={variableName}
-        setMode={setMode}
-        setTheme={setTheme}
-      />
       {children}
     </ModeContext.Provider>
   );
