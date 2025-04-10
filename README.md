@@ -11,7 +11,7 @@ Next wrapper of dark/light theme mode manager for web
   "variableName": "__theme_mode",
   "persist": {
     "type": "cookie",
-    "key": "THEME",
+    "key": "THEME"
   }
 }
 ```
